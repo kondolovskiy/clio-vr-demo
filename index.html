@@ -1,17 +1,62 @@
 <html>
 <head>
     <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-teleport-controls@0.2.x/dist/aframe-teleport-controls.min.js"></script>
+    <script src="https://unpkg.com/aframe-controller-cursor-component@0.2.x/dist/aframe-controller-cursor-component.min.js"></script>
+
+    <script>
+		document.querySelector('#blockHand').addEventListener('click', function (evt) {
+			// Create a blank entity.
+			var newVoxelEl = document.createElement('a-entity');
+
+			// Use the mixin to make it a voxel.
+			newVoxelEl.setAttribute('mixin', 'voxel');
+
+			// Set the position using intersection point. The `snap` component above which
+			// is part of the mixin will snap it to the closest half meter.
+			newVoxelEl.setAttribute('position', evt.detail.intersection.point);
+
+			// Add to the scene with `appendChild`.
+			this.appendChild(newVoxelEl);
+		});
+
+
+		AFRAME.registerComponent('tick', {
+			tick: function () {
+				var el = this.el;
+				var rotationTmp = this.rotationTmp = this.rotationTmp || {x: 0, y: 0, z: 0};
+				var rotation = el.getAttribute('rotation');
+				rotationTmp.x = rotation.x + 0.1;
+				rotationTmp.y = rotation.y + 0.1;
+				rotationTmp.z = rotation.z + 0.1;
+				el.setAttribute('rotation', rotationTmp);
+			}
+		});
+    </script>
 </head>
 <body>
 <a-scene>
 
     <a-entity camera look-controls wasd-controls></a-entity>
-    <a-entity id="leftController" static-body="shape: sphere; sphereRadius: 0.02;" vive-controls="hand: left" sphere-collider="objects: .planet" grab></a-entity>
-    <a-entity id="rightController" static-body="shape: sphere; sphereRadius: 0.02;" vive-controls="hand: right" sphere-collider="objects: .planet" grab></a-entity>
+    <!-- Vive. -->
+    <a-entity vive-controls="hand: left"></a-entity>
+    <a-entity vive-controls="hand: right"></a-entity>
 
-    <a-sphere dynamic-body position="0 2.5 -10" radius="2.5" src="images/earth.jpg"></a-sphere>
+    <!-- Or Rift. -->
+    <a-entity oculus-touch-controls="hand: left"></a-entity>
+    <a-entity oculus-touch-controls="hand: right"></a-entity>
+
+    <a-entity id="teleHand" hand-controls="left" teleport-controls="type: parabolic; collisionEntities: [mixin='voxel'], #ground"></a-entity>
+    <a-entity id="blockHand" hand-controls="right" controller-cursor></a-entity>
+
+    <a-sphere dynamic-body position="0 2.5 -10" radius="2.5" src="images/earth.jpg" tick></a-sphere>
     <a-sphere dynamic-body position="30 2.5 50" radius="2" src="images/mars.jpg"></a-sphere>
     <a-sky color="#000"></a-sky>
+
+    <a-camera>
+        <a-cursor intersection-spawn="event: click; mixin: voxel"></a-cursor>
+    </a-camera>
+
 </a-scene>
 </body>
 </html>
