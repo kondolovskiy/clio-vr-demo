@@ -1,1 +1,1 @@
-# clio-vr-demo
+# [ClioOnline](https://clioonline.dk) hackaton demo project
