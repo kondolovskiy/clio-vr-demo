@@ -17,24 +17,31 @@
 </head>
 <body>
 <a-scene>
-    <a-sphere dynamic-body planet-rotation="speed: .1" position="0 2.5 -400" radius="50" src="images/sun.jpg"
-              event-set__enter="_event: mouseenter; _target: #cylinderText; visible: true"
-              event-set__leave="_event: mouseleave; _target: #cylinderText; visible: false">
-
+    <a-sphere dynamic-body planet-rotation="speed: .1" position="0 2.5 -400" radius="50" src="images/sun.jpg">
         <a-sphere dynamic-body position="1 1 500" radius="25.5" src="images/earth.jpg"
                   planet-rotation="speed: .5"
-                  event-set__enter="_event: mouseenter; _target: #cylinderText; visible: true"
-                  event-set__leave="_event: mouseleave; _target: #cylinderText; visible: false">
+                  event-set__enter="_event: mouseenter; _target: #earthText; visible: true"
+                  event-set__leave="_event: mouseleave; _target: #earthText; visible: false">
             <!-- It pasted inside the Earth because it rotes around the Moon -->
             <a-sphere dynamic-body planet-rotation position="20 20 -100" radius="10" src="images/moon.jpg"></a-sphere>
 
         </a-sphere>
 
         <a-sphere dynamic-body position="-20 -20 -600" radius="13" src="images/mars.jpg"
+                  event-set__enter="_event: mouseenter; _target: #marsText; visible: true"
+                  event-set__leave="_event: mouseleave; _target: #marsText; visible: false"
                   planet-rotation>
         </a-sphere>
 
         <a-sphere dynamic-body position="-250 1 150" radius="20" src="images/venus.jpg"
+                  event-set__enter="_event: mouseenter; _target: #venusText; visible: true"
+                  event-set__leave="_event: mouseleave; _target: #venusText; visible: false"
+                  planet-rotation="speed: .1">
+        </a-sphere>
+
+        <a-sphere dynamic-body position="100 1 20" radius="10" src="images/mercury.jpg"
+                  event-set__enter="_event: mouseenter; _target: #mercuryText; visible: true"
+                  event-set__leave="_event: mouseleave; _target: #mercuryText; visible: false"
                   planet-rotation="speed: .1">
         </a-sphere>
 
@@ -46,9 +53,27 @@
     <a-entity position="5 5 0">
         <a-camera look-controls="enabled:true">
             <a-cursor></a-cursor>
-            <a-text id="cylinderText2" value="This is the Earth" align="center" color="#333"
-                    position="10 0 0"
-                    geometry="primitive: plane; width: 3" material="color: #fff" static-body></a-text>
+
+            <a-text id="mercuryText" value="Mercury. The nearest planet" align="center" color="#333"
+                    position="5 0 -10"
+                    visible="false"
+                    geometry="primitive: plane; width: 5" material="color: #fff" static-body></a-text>
+
+            <a-text id="venusText" value="Venus. The hottest planet" align="center" color="#333"
+                    position="5 0 -10"
+                    visible="false"
+                    geometry="primitive: plane; width: 5" material="color: #fff" static-body></a-text>
+
+            <a-text id="earthText" value="Earth. We are here :)" align="center" color="#333"
+                    position="5 0 -10"
+                    visible="false"
+                    geometry="primitive: plane; width: 5" material="color: #fff" static-body></a-text>
+
+            <a-text id="marsText" value="Mars. Curiosity says `Hello` from there" align="center" color="#333"
+                    position="5 0 -10"
+                    visible="false"
+                    geometry="primitive: plane; width: 5" material="color: #fff" static-body></a-text>
+
         </a-camera>
     </a-entity>
     <a-sky  src="images/galaxy.png"></a-sky>
