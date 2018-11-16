@@ -5,12 +5,11 @@
     <script>
 		AFRAME.registerComponent('planet-rotation', {
 			tick: function () {
+				var speed = +this.data.speed || .1;
 				var el = this.el;
 				var rotationTmp = this.rotationTmp = this.rotationTmp || {x: 0, y: 0, z: 0};
 				var rotation = el.getAttribute('rotation');
-//				rotationTmp.x = rotation.x + 0.1;
-				rotationTmp.y = rotation.y + 0.1;
-//				rotationTmp.z = rotation.z + 0.1;
+				rotationTmp.y = rotation.y + speed;
 				el.setAttribute('rotation', rotationTmp);
 			}
 		});
