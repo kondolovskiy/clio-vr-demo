@@ -17,10 +17,10 @@
 </head>
 <body>
 <a-scene>
-    <a-sphere dynamic-body planet-rotation position="0 2.5 -400" radius="50" src="images/sun.jpg">
+    <a-sphere dynamic-body planet-rotation="speed: .1" position="0 2.5 -400" radius="50" src="images/sun.jpg">
 
         <a-sphere dynamic-body position="1 1 300" radius="25.5" src="images/earth.jpg"
-                  planet-rotation
+                  planet-rotation="speed: .2"
                   event-set__enter="_event: mouseenter; _target: #cylinderText; visible: true"
                   event-set__leave="_event: mouseleave; _target: #cylinderText; visible: false">
             <!-- It pasted inside the Earth because it rotes around the Moon -->
