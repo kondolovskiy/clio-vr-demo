@@ -24,12 +24,12 @@
                   event-set__enter="_event: mouseenter; _target: #cylinderText; visible: true"
                   event-set__leave="_event: mouseleave; _target: #cylinderText; visible: false">
             <!-- It pasted inside the Earth because it rotes around the Moon -->
-            <a-sphere dynamic-body planet-rotation position="20 20 -200" radius="10" src="images/moon.jpg"></a-sphere>
+            <a-sphere dynamic-body planet-rotation position="20 20 -100" radius="10" src="images/moon.jpg"></a-sphere>
         </a-sphere>
         <a-text id="cylinderText" value="This is the Earth" align="center" color="#333" visible="false" position="4 2.5 -10"
                 geometry="primitive: plane; width: 3" material="color: #fff"></a-text>
 
-        <a-sphere dynamic-body position="1 1 400" radius="2" src="images/mars.jpg"
+        <a-sphere dynamic-body position="-20 -20 -400" radius="13" src="images/mars.jpg"
                   planet-rotation>
         </a-sphere>
     </a-sphere>
