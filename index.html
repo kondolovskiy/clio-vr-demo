@@ -4,14 +4,14 @@
 </head>
 <body>
 <a-scene>
-    <a-sphere position="0 2.5 -10" radius="2.5" src="images/earth.jpg"></a-sphere>
-    <a-sphere position="30 2.5 50" radius="2" src="images/mars.jpg"></a-sphere>
-    <a-sky color="#000"></a-sky>
-    <a-entity oculus-go-controls></a-entity>
 
-    <a-entity position="0 0 0">
-        <a-camera look-controls="enabled:true"></a-camera>
-    </a-entity>
+    <a-entity camera look-controls wasd-controls></a-entity>
+    <a-entity id="leftController" static-body="shape: sphere; sphereRadius: 0.02;" vive-controls="hand: left" sphere-collider="objects: .planet" grab></a-entity>
+    <a-entity id="rightController" static-body="shape: sphere; sphereRadius: 0.02;" vive-controls="hand: right" sphere-collider="objects: .planet" grab></a-entity>
+
+    <a-sphere dynamic-body position="0 2.5 -10" radius="2.5" src="images/earth.jpg"></a-sphere>
+    <a-sphere dynamic-body position="30 2.5 50" radius="2" src="images/mars.jpg"></a-sphere>
+    <a-sky color="#000"></a-sky>
 </a-scene>
 </body>
 </html>
