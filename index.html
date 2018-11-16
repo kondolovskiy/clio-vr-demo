@@ -18,28 +18,33 @@
 </head>
 <body>
 <a-scene>
+    <a-sphere dynamic-body planet-rotation position="0 2.5 -400" radius="50" src="images/sun.jpg">
 
-    <a-sphere dynamic-body position="0 2.5 -10" radius="2.5" src="images/earth.jpg"
-              planet-rotation
-              event-set__enter="_event: mouseenter; _target: #cylinderText; visible: true"
-              event-set__leave="_event: mouseleave; _target: #cylinderText; visible: false">
+        <a-sphere dynamic-body position="1 1 300" radius="25.5" src="images/earth.jpg"
+                  planet-rotation
+                  event-set__enter="_event: mouseenter; _target: #cylinderText; visible: true"
+                  event-set__leave="_event: mouseleave; _target: #cylinderText; visible: false">
+            <!-- It pasted inside the Earth because it rotes around the Moon -->
+            <a-sphere dynamic-body planet-rotation position="3 2.5 10" radius=".2" src="images/moon.jpg"></a-sphere>
+        </a-sphere>
+        <a-text id="cylinderText" value="This is the Earth" align="center" color="#333" visible="false" position="4 2.5 -10"
+                geometry="primitive: plane; width: 3" material="color: #fff"></a-text>
 
-        <a-sphere dynamic-body position="3 2.5 10" radius=".2" src="images/moon.jpg"></a-sphere>
-
+        <a-sphere dynamic-body position="30 2.5 50" radius="2" src="images/mars.jpg"
+                  planet-rotation>
+        </a-sphere>
     </a-sphere>
 
-    <a-text id="cylinderText" value="This is the Earth" align="center" color="#333" visible="false" position="4 2.5 -10"
-            geometry="primitive: plane; width: 3" material="color: #fff"></a-text>
 
-    <a-sphere dynamic-body position="30 2.5 50" radius="2" src="images/mars.jpg"></a-sphere>
-    <a-sphere dynamic-body position="50 100 -1500" radius="100" src="images/sun.jpg"></a-sphere>
-    <a-sky color="#000"></a-sky>
+
 
     <a-entity position="5 5 0">
         <a-camera look-controls="enabled:true">
-            <a-cursor></a-cursor><
+            <a-cursor></a-cursor>
         </a-camera>
-    </a-entity></a-scene>
+    </a-entity>
+    <a-sky  src="images/galaxy.png"></a-sky>
+</a-scene>
 
 </body>
 </html>
