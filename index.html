@@ -1,17 +1,64 @@
 <html>
 <head>
     <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+
+
 </head>
 <body>
 <a-scene>
 
-    <a-sphere dynamic-body position="0 2.5 -10" radius="2.5" src="images/earth.jpg"></a-sphere>
+    <a-sphere dynamic-body position="0 2.5 -10" radius="2.5" src="images/earth.jpg" drag-rotate-component></a-sphere>
     <a-sphere dynamic-body position="30 2.5 50" radius="2" src="images/mars.jpg"></a-sphere>
     <a-sky color="#000"></a-sky>
 
+    <a-entity id="control" tracked-controls="controller: 0; idPrefix: OpenVR"></a-entity>
+
     <a-entity position="0 0 0">
         <a-camera look-controls="enabled:true"></a-camera>
-    </a-entity>
-</a-scene>
+    </a-entity></a-scene>
+
+
+    <script type="text/javascript">
+        AFRAME.registerComponent('drag-rotate-component',{
+            schema : { speed : {default:1}},
+            init : function(){
+                this.ifMouseDown = false;
+                this.x_cord = 0;
+                this.y_cord = 0;
+
+                var control = document.getElementById('control');
+
+                control.addEventListener('touchstart',this.OnDocumentMouseDown.bind(this));
+                control.addEventListener('touchend',this.OnDocumentMouseUp.bind(this));
+                control.addEventListener('axismove',this.OnDocumentMouseMove.bind(this));
+            },
+            OnDocumentMouseDown : function(event){
+                this.ifMouseDown = true;
+                this.x_cord = event.clientX;
+                this.y_cord = event.clientY;
+            },
+            OnDocumentMouseUp : function(){
+                this.ifMouseDown = false;
+            },
+            OnDocumentMouseMove : function(event)
+            {
+                if(this.ifMouseDown)
+                {
+                    var temp_x = event.clientX-this.x_cord;
+                    var temp_y = event.clientY-this.y_cord;
+                    if(Math.abs(temp_y)<Math.abs(temp_x))
+                    {
+                        this.el.object3D.rotateY(temp_x*this.data.speed/1000);
+                    }
+                    else
+                    {
+                        this.el.object3D.rotateX(temp_y*this.data.speed/1000);
+                    }
+                    this.x_cord = event.clientX;
+                    this.y_cord = event.clientY;
+                }
+            }
+        });
+    </script>
 </body>
 </html>
