@@ -2,18 +2,35 @@
 <head>
     <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script>
+    <script>
+		AFRAME.registerComponent('planet-rotation', {
+			tick: function () {
+				var el = this.el;
+				var rotationTmp = this.rotationTmp = this.rotationTmp || {x: 0, y: 0, z: 0};
+				var rotation = el.getAttribute('rotation');
+//				rotationTmp.x = rotation.x + 0.1;
+				rotationTmp.y = rotation.y + 0.1;
+//				rotationTmp.z = rotation.z + 0.1;
+				el.setAttribute('rotation', rotationTmp);
+			}
+		});
+    </script>
 </head>
 <body>
 <a-scene>
 
     <a-sphere dynamic-body position="0 2.5 -10" radius="2.5" src="images/earth.jpg"
+              planet-rotation
               event-set__enter="_event: mouseenter; _target: #cylinderText; visible: true"
               event-set__leave="_event: mouseleave; _target: #cylinderText; visible: false">
 
-        <a-text id="cylinderText" value="This is the Earth" align="center" color="#333" visible="false" position="1 2.5 -10"
-                geometry="primitive: plane; width: 4" material="color: #fff"></a-text>
+        <a-sphere dynamic-body position="3 2.5 10" radius=".2" src="images/moon.jpg"></a-sphere>
 
     </a-sphere>
+
+    <a-text id="cylinderText" value="This is the Earth" align="center" color="#333" visible="false" position="4 2.5 -10"
+            geometry="primitive: plane; width: 3" material="color: #fff"></a-text>
+
     <a-sphere dynamic-body position="30 2.5 50" radius="2" src="images/mars.jpg"></a-sphere>
     <a-sphere dynamic-body position="50 100 -1500" radius="100" src="images/sun.jpg"></a-sphere>
     <a-sky color="#000"></a-sky>
@@ -23,30 +40,6 @@
             <a-cursor></a-cursor><
         </a-camera>
     </a-entity></a-scene>
-
-    <script>
-        AFRAME.registerComponent('change-color-on-hover', {
-            schema: {
-                color: {default: 'red'}
-            },
-
-            init: function () {
-                var data = this.data;
-                var el = this.el;  // <a-box>
-                var defaultColor = el.getAttribute('material').color;
-
-                el.addEventListener('mouseenter', function () {
-                    el.setAttribute('color', data.color);
-                    console.log('enter');
-                });
-
-                el.addEventListener('mouseleave', function () {
-                    el.setAttribute('color', defaultColor);
-                    console.log('leave');
-                });
-            }
-        });
-    </script>
 
 </body>
 </html>
